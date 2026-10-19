@@ -1,0 +1,38 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'design-patterns'
+
+[
+    'creational:dp-singleton',
+    'creational:dp-factory',
+    'creational:dp-abstract-factory',
+    'creational:dp-prototype',
+    'creational:dp-builder',
+    'structural:adapter',
+    'structural:bridge',
+    'structural:composite',
+    'structural:decorator',
+    'structural:facade',
+    'structural:flyweight',
+    'structural:proxy',
+    'behavioral:chain-of-responsibility',
+    'behavioral:command',
+    'behavioral:interpreter',
+    'behavioral:iterator',
+    'behavioral:mediator',
+    'behavioral:memento',
+    'behavioral:observer',
+    'behavioral:state',
+    'behavioral:strategy',
+    'behavioral:template-method',
+    'behavioral:visitor'
+].each { path ->
+    include path
+    project(":${path}").projectDir = file(path.replace(':', '/'))
+}
