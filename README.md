@@ -56,7 +56,10 @@ flowchart TD
 - [🤝 Behavioral](behavioral/README.md) — Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method, Visitor.
 
 Each category guide links to its pattern chapters. Every pattern module includes
-an implementation, tests, and an explanation.
+an implementation, tests, and an explanation. The original category overview
+documents are retained in [legacy-overviews](legacy-overviews/README.md) as
+additional reference; the main category guides above are the maintained entry
+points.
 
 ## Build and test
 
@@ -69,3 +72,8 @@ Install JDK 21, then run from this repository root:
 ```
 
 The Gradle Wrapper pins Gradle 9.8.1 and verifies the distribution checksum.
+Build options enable Gradle's parallel execution and build cache.
+
+Further reading: [Gradle documentation](https://docs.gradle.org),
+[Spring Boot Gradle Plugin](https://docs.spring.io/spring-boot/gradle-plugin/),
+and [Gradle Build Scans](https://scans.gradle.com/).

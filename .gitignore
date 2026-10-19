@@ -2,3 +2,14 @@
 build/
 **/build/
 .idea/
+*.iml
+*.jar
+*.war
+*.class
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+.env
+*.env
