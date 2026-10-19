@@ -2,6 +2,7 @@ package com.absolute.bonkers.singleton.eager;
 
 import com.absolute.bonkers.singleton.ConnectionPool;
 import com.absolute.bonkers.singleton.PoolType;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 @Getter
 @Slf4j
 @Service
-public class EagerDatabaseConnectionPool implements Cloneable {
+public class EagerDatabaseConnectionPool implements Cloneable, Serializable {
+  private static final long serialVersionUID = 1L;
+
   /** Initialising the Bean at the time of application startup only */
   private final ConnectionPool connectionPool = ConnectionPool.createPool(PoolType.DATABASE);
 

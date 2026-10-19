@@ -8,6 +8,7 @@ import com.absolute.bonkers.abstractfactory.paypal.PaypalPaymentService;
 import com.absolute.bonkers.abstractfactory.paypal.PaypalRefundService;
 import com.absolute.bonkers.abstractfactory.stripe.StripePaymentService;
 import com.absolute.bonkers.abstractfactory.stripe.StripeRefundService;
+import java.math.BigDecimal;
 import java.util.UUID;
 import nl.altindag.log.LogCaptor;
 import org.junit.jupiter.api.AfterEach;
@@ -24,8 +25,10 @@ class PaymentProcessServiceTest {
 
   @AfterEach
   void tearDown() {
-    logCaptor.clearLogs();
-    logCaptor.close();
+    if (logCaptor != null) {
+      logCaptor.clearLogs();
+      logCaptor.close();
+    }
   }
 
   @Test
@@ -33,13 +36,13 @@ class PaymentProcessServiceTest {
     logCaptor = LogCaptor.forClass(PaypalPaymentService.class);
 
     // given payment processing via PAYPAL
-    paymentProcessService.processPayment(PAYPAL, 100.0);
+    paymentProcessService.processPayment(PAYPAL, new BigDecimal("100.00"));
 
     assertThat(logCaptor.getInfoLogs().size()).isEqualTo(1);
 
     // verify the Paypal payment is called
     assertThat(logCaptor.getInfoLogs())
-        .contains("Payment via PayPal of amount %f is successful".formatted(100.0));
+        .contains("Payment via PayPal of amount 100.00 is successful");
   }
 
   @Test
@@ -61,13 +64,13 @@ class PaymentProcessServiceTest {
     logCaptor = LogCaptor.forClass(StripePaymentService.class);
 
     // given payment processing via STRIPE
-    paymentProcessService.processPayment(STRIPE, 120.0);
+    paymentProcessService.processPayment(STRIPE, new BigDecimal("120.00"));
 
     assertThat(logCaptor.getInfoLogs().size()).isEqualTo(1);
 
     // verify the Stripe payment is called
     assertThat(logCaptor.getInfoLogs())
-        .contains("Payment via Stripe of amount %f is successful".formatted(120.0));
+        .contains("Payment via Stripe of amount 120.00 is successful");
   }
 
   @Test
@@ -83,5 +86,18 @@ class PaymentProcessServiceTest {
     // verify the Stripe refund is called
     assertThat(logCaptor.getInfoLogs())
         .contains("Refund via Stripe for transactionId %s is successful".formatted(transactionId));
+  }
+
+  @Test
+  void rejectsInvalidPaymentAmountsAndRefundIdentifiers() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> paymentProcessService.processPayment(PAYPAL, BigDecimal.ZERO));
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> paymentProcessService.processRefund(STRIPE, " "));
+    assertThrows(
+        NullPointerException.class,
+        () -> paymentProcessService.processPayment(null, BigDecimal.ONE));
   }
 }

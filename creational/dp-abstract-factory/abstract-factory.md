@@ -25,7 +25,7 @@ The Abstract Factory Pattern allows you to create a series of related or depende
 
 The use case focuses on supporting multiple payment gateways (like PAYPAL and STRIPE) where each gateway provides specific implementations for two key services:
 
-	1.	PaymentService: Handles payment processing.
+	1.	PaymentService: Handles payment processing with decimal monetary amounts.
 	2.	RefundService: Handles refund processing.
 
 The Abstract Factory Pattern is used to ensure that related services (e.g., payment and refund) are grouped together for each gateway, allowing for easy extensibility as new gateways are added.
@@ -54,7 +54,7 @@ Test Class:
 classDiagram
     class PaymentService {
       <<interface>>
-      +processPayment(amount: double)
+      +processPayment(amount: BigDecimal)
     }
 
     class RefundService {
@@ -63,11 +63,11 @@ classDiagram
     }
 
     class PayPalPaymentService {
-      +processPayment(amount: double)
+      +processPayment(amount: BigDecimal)
     }
 
     class StripePaymentService {
-      +processPayment(amount: double)
+      +processPayment(amount: BigDecimal)
     }
 
     class PayPalRefundService {
@@ -107,3 +107,5 @@ classDiagram
 *In the world of software design, the Abstract Factory Pattern is your go-to for creating consistent and interchangeable families of objects.<br/>
 Whether you’re building complex user interfaces, game worlds, or product kits, Abstract Factory keeps your object creation elegant, modular, and adaptable to change.<br/>
 So, whenever you’re crafting systems where products come in themed sets, remember the Abstract Factory Pattern to keep things consistent and future-proof! 🏆✨*
+
+Further reading: [GeeksforGeeks on Abstract Factory](https://www.geeksforgeeks.org/system-design/abstract-factory-pattern/) explains the related-product-family intent. Payment amounts use Java's [`BigDecimal`](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/math/BigDecimal.html) rather than binary floating-point values.

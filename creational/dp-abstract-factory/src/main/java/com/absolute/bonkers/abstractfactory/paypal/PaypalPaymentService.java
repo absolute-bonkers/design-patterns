@@ -1,6 +1,7 @@
 package com.absolute.bonkers.abstractfactory.paypal;
 
 import com.absolute.bonkers.abstractfactory.PaymentService;
+import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaypalPaymentService implements PaymentService {
   @Override
-  public void processPayment(Double amount) {
+  public void processPayment(BigDecimal amount) {
     // some fancy payment processing logic
-    log.info("Payment via PayPal of amount %f is successful".formatted(amount));
+    log.info("Payment via PayPal of amount %s is successful".formatted(amount));
   }
 }

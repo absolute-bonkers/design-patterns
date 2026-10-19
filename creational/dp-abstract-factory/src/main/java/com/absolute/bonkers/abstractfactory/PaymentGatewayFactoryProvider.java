@@ -3,6 +3,7 @@ package com.absolute.bonkers.abstractfactory;
 import com.absolute.bonkers.abstractfactory.factories.PaymentGatewayFactory;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,11 @@ public class PaymentGatewayFactoryProvider {
   }
 
   public PaymentGatewayFactory getFactory(PaymentGateway gateway) {
-    return factories.get(gateway.getValue());
+    Objects.requireNonNull(gateway, "gateway");
+    PaymentGatewayFactory factory = factories.get(gateway.getValue());
+    if (factory == null) {
+      throw new IllegalArgumentException("Unsupported payment gateway: " + gateway);
+    }
+    return factory;
   }
 }

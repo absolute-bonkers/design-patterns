@@ -70,9 +70,9 @@ This process can inadvertently break the Singleton pattern, which ensures that o
 
 ***NOTE: We need to make Service / Java class as serializable to break this pattern via serialization***
 
-*When you serialize and deserialize a Singleton object, the default behavior of Java is to create a new instance upon
-deserialization, even if the class enforces a Singleton through traditional methods like lazy initialization or
-double-checked locking.*
+*For an ordinary serializable class, default deserialization can create a second instance even if the class enforces
+Singleton through a private constructor and a cached accessor. An enum singleton is the Java serialization exception:
+serialization preserves its enum constant identity.*
 
 *Here is an illustration of breaking Singleton Pattern via Serialization.*<br/>
 *[BreakSingletonPatternBySerializationTest.java](../dp-singleton/src/test/java/com/absolute/bonkers/singleton/eager/BreakSingletonPatternBySerializationTest.java)*<br/>
@@ -101,12 +101,9 @@ class SingletItem {
 
 ```
 
-**IMPORTANT NOTE**: *In newer versions of Java, including Java 23, there are mechanisms that might automatically protect
-singletons from being broken via serialization/deserialization, especially if you’re using modern best practices like
-enums for singleton implementation.<br>
-Java provides built-in protection for enums by ensuring they remain singletons even after deserialization.<br>
-This is because only the enum name is serialized, and during deserialization, the JVM uses the valueOf method to return
-the same enum instance, preventing multiple instances from being created.*
+**Important:** this module's test serializes the eager service itself and asserts
+that deserialization creates a distinct instance. It uses an in-memory byte
+stream, so it does not leave a generated file in the repository.
 
 --- 
 
@@ -123,7 +120,7 @@ class.*
 pattern is meant to restrict the class to one instance.*
 
 *Here is an illustration of breaking Singleton Pattern via Object Cloning.*<br/>
-*[BreakSingletonPatternByCloningTest.java.java](../dp-singleton/src/test/java/com/absolute/bonkers/singleton/eager/BreakSingletonPatternByCloningTest.java)*<br/>
+*[BreakSingletonPatternByCloningTest.java](../dp-singleton/src/test/java/com/absolute/bonkers/singleton/eager/BreakSingletonPatternByCloningTest.java)*<br/>
 
 ### 😈 *If you want to avoid breaking singleton pattern via Cloning*
 

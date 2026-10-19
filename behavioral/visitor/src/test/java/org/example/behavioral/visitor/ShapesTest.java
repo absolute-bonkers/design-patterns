@@ -19,4 +19,12 @@ class ShapesTest {
         assertThrows(IllegalArgumentException.class, () -> new Shapes.Circle(-1));
         assertThrows(IllegalArgumentException.class, () -> new Shapes.Rectangle(2, -1));
     }
+
+    @Test
+    void dimensionsMustBeFinite() {
+        assertThrows(IllegalArgumentException.class, () -> new Shapes.Circle(Double.NaN));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Shapes.Rectangle(2, Double.POSITIVE_INFINITY));
+    }
 }

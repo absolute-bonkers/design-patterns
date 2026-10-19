@@ -14,6 +14,11 @@ long bytes = folder.sizeInBytes(); // 240
 
 ## Tradeoffs and uses
 
-This pattern is useful for file trees, UI hierarchies, organization charts, and nested expressions where the same operation applies at every level. Recursive traversal is convenient, but large or cyclic graphs can make operations expensive or non-terminating. This example rejects direct self-containment, exposes a read-only child snapshot, and uses non-negative file sizes.
+This pattern is useful for file trees, UI hierarchies, organization charts, and nested expressions where the same operation applies at every level. Recursive traversal is convenient, but deep trees can be expensive and implementations that permit cycles may not terminate. This example rejects cycles, exposes a read-only child snapshot, and uses non-negative file sizes.
 
 See [composite tests](src/test/java/com/example/structural/composite/DirectoryNodeTest.java) for nested aggregation, empty/removal behavior, and validation.
+
+The directory implementation rejects both direct self-containment and an
+indirect parent cycle, keeping this example a tree. See
+[Refactoring.Guru's Composite overview](https://refactoring.guru/design-patterns/composite)
+for the pattern's tree-structure intent.

@@ -40,4 +40,16 @@ class DirectoryNodeTest {
         assertThrows(IllegalArgumentException.class, () -> new FileNode(" ", 1));
         assertThrows(IllegalArgumentException.class, () -> new FileNode("file", -1));
     }
+
+    @Test
+    void rejectsIndirectCyclesInDirectoryTree() {
+        DirectoryNode root = new DirectoryNode("root");
+        DirectoryNode child = new DirectoryNode("child");
+        DirectoryNode grandchild = new DirectoryNode("grandchild");
+        root.add(child);
+        child.add(grandchild);
+
+        assertThrows(IllegalArgumentException.class, () -> grandchild.add(root));
+        assertEquals(0, grandchild.sizeInBytes());
+    }
 }

@@ -83,3 +83,7 @@ By ensuring that there’s only one instance to rule them all, you can say goodb
 code.<br/>
 So, whether you’re building a game, managing configurations, or handling logging, remember the Singleton pattern to keep
 your projects streamlined and efficient! 🌟✨*
+
+Further reading: [Refactoring.Guru's Singleton overview](https://refactoring.guru/design-patterns/singleton)
+describes the single-instance and global-access intent. This Spring example
+shows one bean per application context; it is not a JVM-wide guarantee.

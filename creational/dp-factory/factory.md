@@ -67,3 +67,7 @@ By outsourcing the creation process, you can focus on the big picture while ensu
 adaptable.<br/>
 So, whether you’re crafting game elements, creating UI components, or managing different product types, remember the
 Factory Pattern to keep your object creation game strong! 🏆✨*
+
+Further reading: [Refactoring.Guru's Factory Method overview](https://refactoring.guru/design-patterns/factory-method)
+describes the subclass-overridable creation method distinguished above from a
+simple factory selector.

@@ -18,8 +18,8 @@ public final class Shapes {
 
     public record Circle(double radius) implements Shape {
         public Circle {
-            if (radius < 0) {
-                throw new IllegalArgumentException("Radius cannot be negative");
+            if (!Double.isFinite(radius) || radius < 0) {
+                throw new IllegalArgumentException("Radius must be finite and non-negative");
             }
         }
 
@@ -31,8 +31,8 @@ public final class Shapes {
 
     public record Rectangle(double width, double height) implements Shape {
         public Rectangle {
-            if (width < 0 || height < 0) {
-                throw new IllegalArgumentException("Dimensions cannot be negative");
+            if (!Double.isFinite(width) || !Double.isFinite(height) || width < 0 || height < 0) {
+                throw new IllegalArgumentException("Dimensions must be finite and non-negative");
             }
         }
 

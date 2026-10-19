@@ -107,3 +107,8 @@ Build options enable Gradle's parallel execution and build cache.
 Further reading: [Gradle documentation](https://docs.gradle.org),
 [Spring Boot Gradle Plugin](https://docs.spring.io/spring-boot/gradle-plugin/),
 and [Gradle Build Scans](https://scans.gradle.com/).
+
+For pattern intent and terminology, see the
+[Refactoring.Guru catalog](https://refactoring.guru/design-patterns/catalog)
+and GeeksforGeeks'
+[design-pattern overview](https://www.geeksforgeeks.org/system-design/software-design-patterns/).

@@ -12,7 +12,7 @@ class BreakSingletonPatternByCloningTest {
   @Autowired EagerDatabaseConnectionPool eagerDatabaseConnectionPool;
 
   @Test
-  void breakEagerConnectionPoolSingletonPatternViaReflection() throws CloneNotSupportedException {
+  void cloningCreatesASecondEagerSingletonInstance() throws CloneNotSupportedException {
     // Break singleton pattern using cloning
     EagerDatabaseConnectionPool clonedDbConnectionPool =
         (EagerDatabaseConnectionPool) eagerDatabaseConnectionPool.clone();

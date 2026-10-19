@@ -25,8 +25,8 @@ public final class DirectoryNode implements FileSystemNode {
     @Override
     public void add(FileSystemNode child) {
         Objects.requireNonNull(child, "child");
-        if (child == this) {
-            throw new IllegalArgumentException("a directory cannot contain itself");
+        if (child == this || (child instanceof DirectoryNode directory && directory.contains(this))) {
+            throw new IllegalArgumentException("adding this child would create a directory cycle");
         }
         children.add(child);
     }
@@ -38,5 +38,15 @@ public final class DirectoryNode implements FileSystemNode {
 
     public List<FileSystemNode> children() {
         return List.copyOf(children);
+    }
+
+    private boolean contains(FileSystemNode candidate) {
+        if (children.contains(candidate)) {
+            return true;
+        }
+        return children.stream()
+                .filter(DirectoryNode.class::isInstance)
+                .map(DirectoryNode.class::cast)
+                .anyMatch(directory -> directory.contains(candidate));
     }
 }
